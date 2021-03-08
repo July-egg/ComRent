@@ -65,59 +65,59 @@
     <!-- 下面大框 开始-->
     <el-container class="bottom">
 
-      <el-container :class="categoryListActive? 'left':'leftHidden'">
+      <el-container :class="categoryContainerActive? 'left':'leftHidden'">
 
-        <el-container class="constrained">
+        <el-container class="constrained" @click.native="changeCategoryShow ()">
           <span>产</span>
           <span>品</span>
           <span>分</span>
           <span>类</span>
         </el-container>
         <!-- 具体分类 开始-->
-        <el-container :class="categoryListActive? 'stretched':'stretchedHidden'">
-          <el-container :class="categoryListActive? 'alineActive':'aline'">
+        <el-container :class="categoryContainerActive? 'stretched':'stretchedHidden'">
+          <el-container @click.native="changeItemActive (0)" :class="(categoryContainerActive && categoryItemActive[0])? 'alineActive':'aline'">
             <img src="../assets/Home/包.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>鞋品 / 箱包</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[1])? 'alineActive':'aline'" @click.native="changeItemActive(1)">
             <img src="../assets/Home/饰品.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>饰品 / 配件</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[2])? 'alineActive':'aline'" @click.native="changeItemActive(2)">
             <img src="../assets/Home/家具.png" style="height:23px;width:23px;margin-right:10px;margin-top:2px;"/>
             <span>家具 / 家电</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[3])? 'alineActive':'aline'" @click.native="changeItemActive(3)">
             <img src="../assets/Home/乐器.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>乐器 / 设备</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[4])? 'alineActive':'aline'" @click.native="changeItemActive(4)">
             <img src="../assets/Home/book.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>书籍 / 学习</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[5])? 'alineActive':'aline'" @click.native="changeItemActive(5)">
             <img src="../assets/Home/机械.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>机械 / 重器</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[6])? 'alineActive':'aline'" @click.native="changeItemActive(6)">
             <img src="../assets/Home/旅行装备.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>旅行 / 装备</span>
             <span>＞</span>
           </el-container>
 
-          <el-container class="aline">
+          <el-container :class="(categoryContainerActive && categoryItemActive[7])? 'alineActive':'aline'" @click.native="changeItemActive(7)">
             <img src="../assets/Home/礼服.png" style="height:23px;width:23px;margin-right:10px;"/>
             <span>礼服 / 戏服</span>
             <span>＞</span>
@@ -200,13 +200,21 @@ export default {
       itemPriceArray1: ['10.00', '20.00', '30.00', '40.00', '50.00'],
       itemNameArray2: ['测试名牌运动鞋001', '测试名牌连衣裙001', '测试名牌运动鞋002', '测试名牌戒指001', '测试名牌帽子001'],
       itemPriceArray2: ['10.00', '20.00', '30.00', '40.00', '50.00'],
-      categoryListActive: false
+      categoryContainerActive: false,
+      categoryItemActive: [true, false, false, false, false, false, false, false]
     }
   },
   methods: {
     changeCategoryShow () {
-      this.categoryListActive = !this.categoryListActive
-      console.log(this.categoryListActive)
+      this.categoryContainerActive = !this.categoryContainerActive
+      console.log(this.categoryContainerActive)
+    },
+    changeItemActive (i) {
+      for (var j = 0; j < this.categoryItemActive.length; i++) {
+        this.categoryItemActive[j] = false
+      }
+      this.categoryItemActive[i] = true
+      console.log(this.categoryItemActive)
     }
   }
 }
