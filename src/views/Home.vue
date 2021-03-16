@@ -67,12 +67,18 @@
 
       <el-container class="left">
         <el-container class="constrained" @click.native="changeCategoryShow ()">
-          <span>产</span>
-          <span>品</span>
-          <span>分</span>
-          <span>类</span>
+          <i :class="isCollapse? 'el-icon-s-unfold':'el-icon-s-fold'" />
         </el-container>
-        <el-menu background-color="transparent" text-color="#1C3263" active-text-color="#55688C" default-active="0" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" :unique-opened="true">
+        <el-menu background-color="transparent"
+                 text-color="#1C3263"
+                 active-text-color="#55688C"
+                 default-active="0"
+                 :collapse-transition="false"
+                 class="el-menu-vertical-demo"
+                 @open="handleOpen"
+                 @close="handleClose"
+                 :collapse="isCollapse"
+                 :unique-opened="true">
           <el-submenu v-for="item in categoryList.data" :key="item.id" :index="item.id+''">
             <!-- 一级菜单 -->
             <template slot="title">
@@ -106,7 +112,7 @@
         </el-container>
 
         <!-- 猜你喜欢内容1 开始-->
-        <el-container style="guessYouLike-content-aline-container">
+        <el-container class="guessYouLike-content-aline-container">
           <el-col :span="4" v-for="(o, index) in 5" :key="o" :index="index" :offset="index > 0 ? 1:0">
             <el-card :body-style="{ padding: '0px' }">
               <img src="../assets/Home/item1.png" v-if="index == 0" class="image">
@@ -129,7 +135,7 @@
         <div style="height:30px;width:100%;"></div>
 
         <!-- 猜你喜欢内容2 开始-->
-        <el-container style="guessYouLike-content-aline-container">
+        <el-container class="guessYouLike-content-aline-container">
           <el-col :span="4" v-for="(o, index) in 5" :key="o" :index="index" :offset="index > 0 ? 1:0">
             <el-card :body-style="{ padding: '0px' }">
               <img src="../assets/Home/item1.png" v-if="index == 0" class="image">
@@ -169,10 +175,23 @@ export default {
       itemPriceArray1: ['10.00', '20.00', '30.00', '40.00', '50.00'],
       itemNameArray2: ['测试名牌运动鞋001', '测试名牌连衣裙001', '测试名牌运动鞋002', '测试名牌戒指001', '测试名牌帽子001'],
       itemPriceArray2: ['10.00', '20.00', '30.00', '40.00', '50.00'],
-      isCollapse: false,
+      isCollapse: true,
 
       categoryList: {
         data: [{
+          id: 1,
+          categoryName: '鞋品 / 箱包',
+          subCategory: [
+            { id: 11, categoryName: '单鞋' },
+            { id: 12, categoryName: '凉鞋' },
+            { id: 13, categoryName: '高跟鞋' },
+            { id: 14, categoryName: '平底鞋' },
+            { id: 15, categoryName: '帆布鞋' },
+            { id: 16, categoryName: '运动鞋' },
+            { id: 17, categoryName: '拖鞋' }
+          ]
+        },
+        {
           id: 2,
           categoryName: '饰品 / 配件',
           subCategory: [
@@ -251,6 +270,9 @@ export default {
     },
     handleClose (key, keyPath) {
       console.log(key, keyPath)
+    },
+    changeCategoryShow () {
+      this.isCollapse = !this.isCollapse
     }
   }
 }
@@ -261,14 +283,12 @@ export default {
   background-color: #F2B50F;
   width: 100%;
   height: 90px;
-  direction: horizontal;
   display: flex;
   justify-content: space-between;
 }
 
 .head-container.left{
   width: 20%;
-  direction: horizontal;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -277,16 +297,18 @@ export default {
 .head-container .middle{
   /*background-color: #8f8d85;*/
   width: 48%;
-  direction: vertical;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
+/deep/ .head-container .middle{
+  .el-input__inner {
+    border-radius: 20px;
+  }
+}
 .head-container .right{
   width: 23%;
-  direction: horizontal;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -300,7 +322,7 @@ export default {
 }
 .bannerImg{
   width: 100%;
-  height: 300;
+  height: 300px;
 }
 .categoryIcon{
   height:23px;
@@ -330,7 +352,7 @@ export default {
   flex-direction: column;
 }
 .guessYouLike-content-aline-container{
-  height: 80px;
+ /* height: 80px;  */
   justify-content: center;
   align-items: center;
 }
@@ -362,7 +384,7 @@ export default {
   background-color: #FFD768;
   box-shadow: 1px 0.3px 5px rgb(182, 181, 181);
   .el-submenu .el-menu-item {
-    min-width: none;
+    min-width: 0;
   }
 }
 
