@@ -65,66 +65,35 @@
     <!-- 下面大框 开始-->
     <el-container class="bottom">
 
-      <el-container :class="categoryListActive? 'left':'leftHidden'">
-
-        <el-container class="constrained">
+      <el-container class="left">
+        <el-container class="constrained" @click.native="changeCategoryShow ()">
           <span>产</span>
           <span>品</span>
           <span>分</span>
           <span>类</span>
         </el-container>
-        <!-- 具体分类 开始-->
-        <el-container :class="categoryListActive? 'stretched':'stretchedHidden'">
-          <el-container :class="categoryListActive? 'alineActive':'aline'">
-            <img src="../assets/Home/包.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>鞋品 / 箱包</span>
-            <span>＞</span>
-          </el-container>
+        <el-menu background-color="transparent" text-color="#1C3263" active-text-color="#55688C" default-active="0" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" :unique-opened="true">
+          <el-submenu v-for="item in categoryList.data" :key="item.id" :index="item.id+''">
+            <!-- 一级菜单 -->
+            <template slot="title">
+              <img src="../assets/Home/包.png" v-if="item.id == 1" class="categoryIcon"/>
+              <img src="../assets/Home/饰品.png" v-if="item.id == 2" class="categoryIcon"/>
+              <img src="../assets/Home/家具.png" v-if="item.id == 3" class="categoryIcon"/>
+              <img src="../assets/Home/乐器.png" v-if="item.id == 4" class="categoryIcon"/>
+              <img src="../assets/Home/book.png" v-if="item.id == 5" class="categoryIcon"/>
+              <img src="../assets/Home/机械.png" v-if="item.id == 6" class="categoryIcon"/>
+              <img src="../assets/Home/旅行装备.png" v-if="item.id == 7" class="categoryIcon"/>
+              <img src="../assets/Home/礼服.png" v-if="item.id == 8" class="categoryIcon"/>
+              <span style="font-weight: bold;margin-right:50px;">{{item.categoryName}}</span>
+            </template>
 
-          <el-container class="aline">
-            <img src="../assets/Home/饰品.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>饰品 / 配件</span>
-            <span>＞</span>
-          </el-container>
+            <!-- 二级菜单 -->
+            <el-menu-item v-for="subItem in item.subCategory" :key="subItem.id" :index="subItem.id+''">
+              <span style="margin-right:50px;">{{subItem.categoryName}}</span>
 
-          <el-container class="aline">
-            <img src="../assets/Home/家具.png" style="height:23px;width:23px;margin-right:10px;margin-top:2px;"/>
-            <span>家具 / 家电</span>
-            <span>＞</span>
-          </el-container>
-
-          <el-container class="aline">
-            <img src="../assets/Home/乐器.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>乐器 / 设备</span>
-            <span>＞</span>
-          </el-container>
-
-          <el-container class="aline">
-            <img src="../assets/Home/book.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>书籍 / 学习</span>
-            <span>＞</span>
-          </el-container>
-
-          <el-container class="aline">
-            <img src="../assets/Home/机械.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>机械 / 重器</span>
-            <span>＞</span>
-          </el-container>
-
-          <el-container class="aline">
-            <img src="../assets/Home/旅行装备.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>旅行 / 装备</span>
-            <span>＞</span>
-          </el-container>
-
-          <el-container class="aline">
-            <img src="../assets/Home/礼服.png" style="height:23px;width:23px;margin-right:10px;"/>
-            <span>礼服 / 戏服</span>
-            <span>＞</span>
-          </el-container>
-        </el-container>
-        <!-- 具体分类 结束-->
-
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
       </el-container>
 
       <!-- 猜你喜欢大框 开始-->
@@ -179,7 +148,7 @@
         </el-container>
         <!-- 猜你喜欢内容2 结束-->
       </el-container>
-      <!-- 猜你喜欢大框 开始-->
+      <!-- 猜你喜欢大框 结束-->
 
     </el-container>
     <!-- 下面大框 结束-->
@@ -200,19 +169,94 @@ export default {
       itemPriceArray1: ['10.00', '20.00', '30.00', '40.00', '50.00'],
       itemNameArray2: ['测试名牌运动鞋001', '测试名牌连衣裙001', '测试名牌运动鞋002', '测试名牌戒指001', '测试名牌帽子001'],
       itemPriceArray2: ['10.00', '20.00', '30.00', '40.00', '50.00'],
-      categoryListActive: false
+      isCollapse: false,
+
+      categoryList: {
+        data: [{
+          id: 2,
+          categoryName: '饰品 / 配件',
+          subCategory: [
+            { id: 21, categoryName: '单鞋' },
+            { id: 22, categoryName: '凉鞋' },
+            { id: 23, categoryName: '高跟鞋' },
+            { id: 24, categoryName: '平底鞋' },
+            { id: 25, categoryName: '帆布鞋' },
+            { id: 26, categoryName: '运动鞋' },
+            { id: 27, categoryName: '拖鞋' }
+          ]
+        },
+        {
+          id: 3,
+          categoryName: '家具 / 家电',
+          subCategory: [
+            { id: 31, categoryName: '单鞋' },
+            { id: 32, categoryName: '凉鞋' },
+            { id: 33, categoryName: '高跟鞋' },
+            { id: 34, categoryName: '平底鞋' },
+            { id: 35, categoryName: '帆布鞋' },
+            { id: 36, categoryName: '运动鞋' },
+            { id: 37, categoryName: '拖鞋' }
+          ]
+        },
+        {
+          id: 4,
+          categoryName: '乐器 / 设备',
+          subCategory: [
+            { id: 41, categoryName: '单鞋' },
+            { id: 42, categoryName: '凉鞋' },
+            { id: 43, categoryName: '高跟鞋' },
+            { id: 44, categoryName: '平底鞋' },
+            { id: 45, categoryName: '帆布鞋' },
+            { id: 46, categoryName: '运动鞋' },
+            { id: 47, categoryName: '拖鞋' }
+          ]
+        },
+        {
+          id: 5,
+          categoryName: '书籍 / 学习',
+          subCategory: [
+            { id: 51, categoryName: '单鞋' },
+            { id: 52, categoryName: '凉鞋' }
+          ]
+        },
+        {
+          id: 6,
+          categoryName: '机械 / 重器',
+          subCategory: [
+            { id: 61, categoryName: '单鞋' },
+            { id: 62, categoryName: '凉鞋' }
+          ]
+        },
+        {
+          id: 7,
+          categoryName: '旅行 / 装备',
+          subCategory: [
+            { id: 71, categoryName: '单鞋' }
+          ]
+        },
+        {
+          id: 8,
+          categoryName: '礼服 / 戏服',
+          subCategory: [
+            { id: 81, categoryName: '单鞋' }
+          ]
+        }
+        ]
+      }
     }
   },
   methods: {
-    changeCategoryShow () {
-      this.categoryListActive = !this.categoryListActive
-      console.log(this.categoryListActive)
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .head-container{
   background-color: #F2B50F;
   width: 100%;
@@ -258,6 +302,11 @@ export default {
   width: 100%;
   height: 300;
 }
+.categoryIcon{
+  height:23px;
+  width:23px;
+  margin-right:10px;
+}
 .guessYouLike-title-container{
   width: 95%;
   height: 100px;
@@ -298,34 +347,34 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
 }
-.bottom .left{
-  width: 15%;
-  height:500px;
+/deep/ .bottom .left{
   margin-top: 60px;
   display: flex;
+  height: 450px;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: #FFD768;
   box-shadow: 1px 0.3px 5px rgb(182, 181, 181);
+  .el-submenu .el-menu-item {
+    min-width: 0;
+  }
 }
-.bottom .leftHidden{
-  width: 15%;
-  height:500px;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 85%;
+  height: 450px;
+  max-height: 450px;
+  background-color: transparent;
 }
-.constrained{
+.bottom .constrained{
   width: 20px;
-  height: 500px;
+  height: 450px;
   background-color: #FFD768;
   display: flex;
   flex-direction: column;
@@ -335,46 +384,9 @@ export default {
   border-bottom-right-radius: 10px;
   box-shadow: 1px 0.3px 5px rgb(182, 181, 181);
 }
-.stretched{
-  height:500px;
-  width: 170px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.stretchedHidden{
-  height:500px;
-  width: 170px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0;
-}
-.stretched .aline{
-  display: flex;
-  width: 95%;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-top: 14px;
-  margin-bottom: 14px;
-}
-.stretched .alineActive{
-  display: flex;
-  width: 95%;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: rgb(255, 255, 255);
-  border-radius: 20px;
-  border-width: 1px;
-  border-color: rgb(177, 177, 182);
-  border-style: solid;
-  margin-top: 14px;
-  margin-bottom: 14px;
-}
+
 .bottom .right{
-  width: 85%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
