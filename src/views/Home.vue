@@ -362,7 +362,7 @@ export default {
   background-color: #FFD768;
   box-shadow: 1px 0.3px 5px rgb(182, 181, 181);
   .el-submenu .el-menu-item {
-    min-width: none;
+    min-width: 0;
   }
 }
 
